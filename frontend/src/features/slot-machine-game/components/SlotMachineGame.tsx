@@ -10,7 +10,7 @@ const SlotMachineGame = () => {
       <Typography variant="h4" gutterBottom>
         Slot Machine
       </Typography>
-      {(game && credit > 0) ? (
+      {(game && credit && credit > 0) ? (
         <>
           <Grid container spacing={2} justifyContent="center">
             {slots.map((slot, index) => (
@@ -28,7 +28,7 @@ const SlotMachineGame = () => {
             ))}
           </Grid>
           <Box mt={3}>
-            <Button disabled={isSpinning} variant="contained" color="primary" onClick={roll}>
+            <Button disabled={isSpinning} variant="contained" color="primary" onClick={() => roll()}>
               Spin
             </Button>
           </Box>
@@ -44,7 +44,7 @@ const SlotMachineGame = () => {
             </Alert>
           }
           <Box mt={3}>
-            <Button variant="contained" color="primary" onClick={startGame}>
+            <Button variant="contained" color="primary" onClick={() => startGame()}>
               Start Game
             </Button>
           </Box>

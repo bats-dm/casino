@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const useSlotMachine = () => {
   const [startGame, { data: game }] = useSlotMachineStartGameMutation()
   const [roll, { data: attempt, isLoading: isRollLoading }] = useSlotMachineRollMutation()
-  const [credit, setCredit] = useState();
+  const [credit, setCredit] = useState<number>();
   const [slots, setSlots] = useState(["", "", ""]);
   const [isSpinning, setIsSpinning] = useState(false);
 

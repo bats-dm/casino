@@ -1,20 +1,11 @@
 import {
-  BaseQueryFn,
   createApi,
-  FetchArgs,
   fetchBaseQuery,
-  FetchBaseQueryError,
-  retry,
 } from "@reduxjs/toolkit/query/react"
-import { getAccessToken, logoutFn } from "helpers/authHelpers"
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
   baseUrl: "/api/",
-  prepareHeaders: (headers, { getState }) => {
-
-    return headers
-  },
 })
 
 /**
