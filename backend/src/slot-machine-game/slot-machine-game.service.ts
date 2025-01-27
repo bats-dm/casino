@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException, Scope } from '@nestjs/common'
-import { CreateSlotMachineGameDto } from './dto/create-slot-machine-game.dto';
 import { SlotMachineGameRepository } from "./slot-machine-game.repository"
 import { SlotMachineGame } from "./entities/slot-machine-game.entity"
 import { SlotMachineRollerService } from "./slot-machine-roller.service"
@@ -31,10 +30,10 @@ export class SlotMachineGameService {
 
     // If you win too much - add a chance for re-roll :)
     if (
-      prize &&
+      prize > 0 &&
       (
         (game.credit >= 60 && SlotMachineRollerService.isRerollNeeded(60)) ||
-        (game.credit >= 40 && SlotMachineRollerService.isRerollNeeded(30))
+        (game.credit < 60 && game.credit >= 40 && SlotMachineRollerService.isRerollNeeded(30))
       )
     ) {
       slots = SlotMachineRollerService.generateSlots(game.credit)
