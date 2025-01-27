@@ -5,7 +5,7 @@ export class SlotMachineRollerService {
     const size = SLOT_MACHINE_SYMBOLS.length;
 
     const slots: string[] = []
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < 3; i++) {
       slots.push(SLOT_MACHINE_SYMBOLS[Math.floor(Math.random() * size)]);
     }
 
