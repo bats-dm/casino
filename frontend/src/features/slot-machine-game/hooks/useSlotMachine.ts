@@ -1,24 +1,39 @@
-import { useSlotMachineRollMutation, useSlotMachineStartGameMutation } from "../../../app/services/slotMachineApi";
+import {
+  useSlotMachineFinishGameMutation,
+  useSlotMachineRollMutation,
+  useSlotMachineStartGameMutation
+} from "../../../app/services/slotMachineApi"
 import { ANIMATION_DELAY } from "../constants/slotMachineConstants";
 import { useState, useEffect } from 'react';
 
 const useSlotMachine = () => {
   const [startGame, { data: game }] = useSlotMachineStartGameMutation()
   const [roll, { data: attempt, isLoading: isRollLoading }] = useSlotMachineRollMutation()
+  const [finish, { isSuccess: isFinished, isLoading: isFinishing }] = useSlotMachineFinishGameMutation()
   const [credit, setCredit] = useState<number>();
   const [slots, setSlots] = useState(["", "", ""]);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [isGameStarted, setIsGameStarted] = useState(false);
 
   useEffect(() => {
     if (game) {
       setCredit(game.credit);
+      setSlots(["", "", ""]);
+      setIsGameStarted(true);
     }
   }, [game])
 
   useEffect(() => {
+    if (isFinished) {
+      setCredit(undefined);
+      setIsGameStarted(false);
+    }
+  }, [isFinished])
+
+  useEffect(() => {
     if (isRollLoading) {
-      setSlots(["X", "X", "X"]);
       setIsSpinning(true);
+      setSlots(["X", "X", "X"]);
     }
   }, [isRollLoading])
 
@@ -36,11 +51,12 @@ const useSlotMachine = () => {
 
   return {
     startGame,
-    game,
+    isGameStarted,
     roll,
     credit,
     slots,
-    isSpinning,
+    isLoading: (isSpinning || isFinishing),
+    finish,
   }
 }
 

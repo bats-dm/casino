@@ -3,14 +3,14 @@ import { motion } from 'framer-motion';
 import useSlotMachine from "../hooks/useSlotMachine.ts";
 
 const SlotMachineGame = () => {
-  const { game, startGame, slots, roll, credit, isSpinning } = useSlotMachine()
+  const { isGameStarted, startGame, slots, roll, credit, isLoading, finish } = useSlotMachine();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', textAlign: 'center' }}>
       <Typography variant="h4" gutterBottom>
         Slot Machine
       </Typography>
-      {(game && credit && credit > 0) ? (
+      {(isGameStarted && credit && credit > 0) ? (
         <>
           <Grid container spacing={2} justifyContent="center">
             {slots.map((slot, index) => (
@@ -28,12 +28,17 @@ const SlotMachineGame = () => {
             ))}
           </Grid>
           <Box mt={3}>
-            <Button disabled={isSpinning} variant="contained" color="primary" onClick={() => roll()}>
+            <Button disabled={isLoading} variant="contained" color="primary" onClick={() => roll()}>
               Spin
             </Button>
           </Box>
           <Box mt={3}>
             <Typography variant="h5">Score: {credit}</Typography>
+          </Box>
+          <Box mt={3}>
+            <Button disabled={isLoading} color="primary" onClick={() => finish()}>
+              Finish
+            </Button>
           </Box>
         </>
       ) : (

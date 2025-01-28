@@ -16,6 +16,12 @@ export const providerFormApi = api.injectEndpoints({
           method: "PATCH",
         }),
       }),
+      slotMachineFinishGame: build.mutation<void, void>({
+        query: () => ({
+          url: `slot-machine-game/finish`,
+          method: "PATCH",
+        }),
+      }),
     }
   },
 });
@@ -23,4 +29,5 @@ export const providerFormApi = api.injectEndpoints({
 export const {
   useSlotMachineStartGameMutation,
   useSlotMachineRollMutation,
+  useSlotMachineFinishGameMutation,
 } = providerFormApi;

@@ -1,7 +1,7 @@
 import { SLOT_MACHINE_PRIZES, SLOT_MACHINE_SYMBOLS } from "./constants/slot-machine-constants"
 
 export class SlotMachineRollerService {
-  static generateSlots(credits: number) {
+  static generateSlots() {
     const size = SLOT_MACHINE_SYMBOLS.length;
 
     const slots: string[] = []
